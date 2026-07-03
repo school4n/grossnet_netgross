@@ -157,9 +157,8 @@ export function calculateEmployerInsurance(insuranceSalary, regionWage, luongCoS
 export function grossToNet(gross, config = {}) {
   const regionKey = config.region || 1;
   const dependents = config.dependents || 0;
-  const insuranceType = config.insuranceType || 'actual'; // 'actual' or 'custom'
+  const insuranceType = config.insuranceType || 'actual';
   const customInsuranceSalary = config.customInsuranceSalary || 0;
-  const taxFreeAllowances = config.taxFreeAllowances || 0;
   const luongCoSo = config.luongCoSo || DEFAULT_PARAMS.luongCoSo;
 
   const regionWage = REGIONS[regionKey].minWage;
