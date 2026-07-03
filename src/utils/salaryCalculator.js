@@ -212,6 +212,7 @@ export function netToGross(net, config = {}) {
   const dependents = config.dependents || 0;
   const insuranceType = config.insuranceType || 'actual'; // 'actual' or 'custom'
   const customInsuranceSalary = config.customInsuranceSalary || 0;
+  // eslint-disable-next-line no-unused-vars
   const taxFreeAllowances = config.taxFreeAllowances || 0;
   const luongCoSo = config.luongCoSo || DEFAULT_PARAMS.luongCoSo;
 
