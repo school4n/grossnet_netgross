@@ -29,7 +29,7 @@ function App() {
         <TaxExplanation />
       </section>
       <footer className="no-print">
-        <p>© {new Date().getFullYear()} VNSalary Calculator — Kết quả mang tính tham khảo.</p>
+         <p>© {new Date().getFullYear()} thaitruongan.</p>
       </footer>
     </div>
   );
