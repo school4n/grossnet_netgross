@@ -159,31 +159,54 @@ export function grossToNet(gross, config = {}) {
   const dependents = config.dependents || 0;
   const insuranceType = config.insuranceType || 'actual';
   const customInsuranceSalary = config.customInsuranceSalary || 0;
+  const taxFreeAllowances = config.taxFreeAllowances || 0;
   const luongCoSo = config.luongCoSo || DEFAULT_PARAMS.luongCoSo;
 
   const regionWage = REGIONS[regionKey].minWage;
-  const insuranceSalary = insuranceType === 'actual' ? gross : customInsuranceSalary;
+  const insuranceSalary =
+    insuranceType === 'actual' ? gross : customInsuranceSalary;
 
   // 1. Calculate insurances
-  const insEmployee = calculateEmployeeInsurance(insuranceSalary, regionWage, luongCoSo);
+  const insEmployee = calculateEmployeeInsurance(
+    insuranceSalary,
+    regionWage,
+    luongCoSo
+  );
 
   // 2. Calculate deductions
   const personalDeduction = DEFAULT_PARAMS.giamTruBanThan;
-  const dependentDeduction = dependents * DEFAULT_PARAMS.giamTruPhuThuoc;
-  const totalDeduction = personalDeduction + dependentDeduction;
+  const dependentDeduction =
+    dependents * DEFAULT_PARAMS.giamTruPhuThuoc;
+  const totalDeduction =
+    personalDeduction + dependentDeduction;
 
   // 3. Taxable Income
-  const taxableIncome = Math.max(0, gross - taxFreeAllowances - insEmployee.total - totalDeduction);
+  const taxableIncome = Math.max(
+    0,
+    gross -
+      taxFreeAllowances -
+      insEmployee.total -
+      totalDeduction
+  );
 
   // 4. PIT Tax
   const pitResult = calculatePIT(taxableIncome);
 
   // 5. Net Salary
-  const net = Math.max(0, gross - insEmployee.total - pitResult.tax);
+  const net = Math.max(
+    0,
+    gross - insEmployee.total - pitResult.tax
+  );
 
   // 6. Employer Cost
-  const insEmployer = calculateEmployerInsurance(insuranceSalary, regionWage, luongCoSo);
-  const totalEmployerCost = gross + insEmployer.total;
+  const insEmployer = calculateEmployerInsurance(
+    insuranceSalary,
+    regionWage,
+    luongCoSo
+  );
+
+  const totalEmployerCost =
+    gross + insEmployer.total;
 
   return {
     gross,
